@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+namespace：命名空间
+id：sql语句的宇哥标识符，使用时必须是：namespace.id格式！
+resultType：顾名思义就是返回值类型！（如果是一个类的话就自动写入封装成其一个对象，但前提条件是属性名和表列名一致！）
+-->
+<mapper namespace="cnjxufe.bean.EmployeeMapper">
+    <select id="selectEmp" resultType="cnjxufe.bean.Employee">select * from tbl_employee where id = #{id}</select>
+</mapper>
