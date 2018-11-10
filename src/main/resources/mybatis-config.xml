@@ -18,5 +18,6 @@
     <!--将我们写好的sql映射文件注册在全局配置文件中！-->
     <mappers>
         <mapper resource="employee_statement.xml"/>
+        <mapper resource="getEmployeeById_statement.xml"/>
     </mappers>
 </configuration>

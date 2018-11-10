@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!--
 namespace：命名空间
-id：sql语句的宇哥标识符，使用时必须是：namespace.id格式！
+id：sql语句的一个标识符，使用时必须是：namespace.id格式！
 resultType：顾名思义就是返回值类型！（如果是一个类的话就自动写入封装成其一个对象，但前提条件是属性名和表列名一致！）
 -->
 <mapper namespace="cnjxufe.bean.EmployeeMapper">
