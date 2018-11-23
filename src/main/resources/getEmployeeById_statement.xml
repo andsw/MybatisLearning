@@ -3,6 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
+<!--命名空间使用接口的全类名，以实现接口式编程！-->
 <mapper namespace="cnjxufe.bean.EmployeeMapper">
-    <select id="getEmployeeById" resultType="cnjxufe.bean.Employee">select * from tbl_employee where id = #{id}</select>
+    <select id="getEmployeeById" resultType="employee">select * from tbl_employee where id = #{id}</select>
 </mapper>

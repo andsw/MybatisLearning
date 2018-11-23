@@ -1,0 +1,41 @@
+一、hello world篇，即是用xml配置实现的mapper查询数据
+
+二、实现了接口式编程，命名空间写好接口的全路径，然后里面的select标签名写成方法名，
+然后openSqlSession直接getMapper(接口全名)，然后就可以直接使用sql语句了！
+
+三、小结
+    1、原生jdbc时，我们是一个dao接口对应一个DaoImpl即接口实现类。
+       而mybatis中，是一个mapper接口对应一个mapper的xml文件！
+    2、sqlSession代表的是与数据库的一次会话，用完必须关闭！
+    3、sqlSession和connection一样都是非线程安全的，每次使用
+    都应该或获取一个新的对象，而不可以当做一个类属性放在类中！
+    4、mapper接口没有实现类，但是mybatis会给其生成一个代理对象。
+    在SqlSession传入一个配置文件，该配置文件将接口与sql对象绑定！
+    5、重要的配置文件有两个：
+    第一个：mybatis全局配置文件：设置了连接池信息，事务管理器信息等。。。系统运行环境。
+    第二个文件是至关重要的，可以没有mybatis的全局配置文件（这种实现方式可以参考官方文档），
+    都不可以没有sql映射文件！
+    第二个：保存每条sql的映射信息，将sql语句提取出来。这样就可以将sql优化了！
+
+四、这节讲的和intellij没有关系！
+
+
+五、mybatis在数据源配置的地方使用外部属性标签<properties>，
+然后后面直接使用${属性名}使用属性值，这样易于修改相关配置！
+值得一提的是，数据源的配置在后面Spring和mybatis整合后完全交给spring做。
+
+六、这节讲到mybatis配置文件中的setting标签，其有许多非常非常重要的属性配制。可以大致了解下！
+注意写setting配置时直接报错的原因：
+注意这个配置文件的所有标签都要按照顺序来，就像刚才在下面写settings就会报错，连之前能正常运行的test文件都不能运行
+所匹配的顺序为：
+(properties?,settings?,typeAliases?,typeHandlers?,objectFactory?,objectWrapperFactory?,reflectorFactory?
+,plugins?,environments?,databaseIdProvider?,mappers?)！！！
+
+
+七、讲到typeAlias即别名处理器，作用就是把java类型的全名路径装换成较短的字符串表示。
+这里有三种方式起别名：在配置文件单独起别名，批量起别名，注解！！！
+注意mybatis已给java中的某些类型起好了别名，比如：基本类型的别名是在其前面加下划线，包装类、集合类等等类型都是类
+名的小写形式，我们自己起的别名不能和已经存在的别名冲突！
+
+八、typeHandler，顾名思义类型处理器！作用是 就是将java类型转化成数据库兼容类型，或将数据库类型转化成java类型！
+mybatis就是用这个东西对数据类型进行转化的！同样，mybatis已经内置了很多默认的转换处理器！

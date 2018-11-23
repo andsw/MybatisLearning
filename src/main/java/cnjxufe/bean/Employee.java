@@ -6,16 +6,16 @@ package cnjxufe.bean;
  */
 public class Employee {
     private Integer id;
-    private String name;
+    private String lastName;
     private char gender;
     private String email;
 
     public Employee() {
     }
 
-    public Employee(Integer id, String name, char gender, String email) {
+    public Employee(Integer id, String lastName, char gender, String email) {
         this.id = id;
-        this.name = name;
+        this.lastName = lastName;
         this.gender = gender;
         this.email = email;
     }
@@ -28,12 +28,12 @@ public class Employee {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getlastName() {
+        return lastName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setlastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public char getGender() {
@@ -56,7 +56,7 @@ public class Employee {
     public String toString() {
         return "Employee{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", lastName='" + lastName + '\'' +
                 ", gender=" + gender +
                 ", email='" + email + '\'' +
                 '}';

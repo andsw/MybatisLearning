@@ -42,7 +42,7 @@ public class MybatisTest {
     /**
     *
     * Method: getId()
-    *
+    * 接口式编程时比较受欢迎的
     */
     @Test
     public void mybatis() throws Exception {

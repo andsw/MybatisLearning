@@ -2,16 +2,46 @@
 <!DOCTYPE configuration
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+
 <!--创建SqlSessionFactory的配置-->
+
+<!--注意这个配置文件的所有标签都要按照顺序来，就像刚才在下面写settings就会报错，连之前能正常运行的test文件都不能运行-->
+<!--所匹配的顺序为：-->
+<!--(properties?,settings?,typeAliases?,typeHandlers?,objectFactory?,objectWrapperFactory?,reflectorFactory?
+,plugins?,environments?,databaseIdProvider?,mappers?)-->
 <configuration>
+
+    <properties resource="database_config.properties"/>
+
+    <settings>
+        <!--将数据库中下划线分隔单词的命名格式转换成java中的驼峰命名格式，亲试有效！-->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+
+    <typeAliases>
+        <!--指定要java类型的全名，默认别名是类名小写：employee
+        设置成这样，就可以在映射中直接使用employee指代其全类名！
+        修改employee_statement.xml文件中的类名，然后运行成功！-->
+        <typeAlias type="cnjxufe.bean.Employee" alias="emp"/>
+
+        <!--上面那种情况只能一次性给一个类起别名，如果我们有一个包下面的所有类都取别名，我们可以这样批量起别名-->
+        <!--这个包下面的所有类的别名即类名小写！-->
+        <!--注意！！！ 别名不区分大小写！-->
+        <package name="cnjxufe.bean"/>
+
+        <!--我们还可以使用注解方式来给类名起别名！即 @Alias("")，注意会出现别名冲突！-->
+
+    </typeAliases>
+
     <environments default="development">
         <environment id="development">
             <transactionManager type="JDBC"/>
             <dataSource type="POOLED">
-                <property name="driver" value="com.mysql.jdbc.Driver"/>
-                <property name="url" value="jdbc:mysql://localhost:3306/mybatis?serverTimezone=GMT%2B8"/>
-                <property name="username" value="root"/>
-                <property name="password" value="123456"/>
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
             </dataSource>
         </environment>
     </environments>
