@@ -1,4 +1,4 @@
-一、hello world篇，即是用xml配置实现的mapper查询数据
+一、hello world篇，即使用xml配置实现的mapper查询数据
 
 二、实现了接口式编程，命名空间写好接口的全路径，然后里面的select标签名写成方法名，
 然后openSqlSession直接getMapper(接口全名)，然后就可以直接使用sql语句了！
