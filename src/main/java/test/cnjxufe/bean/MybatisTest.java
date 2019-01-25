@@ -56,4 +56,30 @@ public class MybatisTest {
         }
     }
 
+    /**
+     * 测试其他sql操作（增删改）
+     * 这里的增删改操纵需要手动commit。
+     *（比如删除的地方出现错误，没有commit，那么insert也就不会生效！）
+     */
+    @Test
+    public void test0() {
+        SqlSessionFactory factory = getSqlSessionFactory();
+        SqlSession sqlSession = factory.openSession();
+        EmployeeMapper mapper = sqlSession.getMapper(EmployeeMapper.class);
+        //增加员工
+        Employee employee = new Employee("000000",
+                "heshao", 'M', "985934131@qq.com");
+        int insertNum = mapper.insertEmployee(employee);
+        System.out.println("插入记录成功条数 = "  + insertNum);
+        //删除
+        boolean deleteSuccessfully = mapper.deleteEmployeeById("0164558");
+        System.out.println("删除成功？  " + deleteSuccessfully);
+        //修改
+        employee.setEmail("2127804711@qq.com");
+        long updateNum = mapper.updateEmployee(employee);
+        System.out.println("修改记录成功条数：" + updateNum);
+        sqlSession.commit();
+        sqlSession.close();
+    }
+
 }

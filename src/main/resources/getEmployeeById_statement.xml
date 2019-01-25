@@ -5,6 +5,29 @@
 
 <!--命名空间使用接口的全类名，以实现接口式编程！-->
 <mapper namespace="cnjxufe.bean.EmployeeMapper">
-    <select id="getEmployeeById" resultType="employee" databaseId="mysql">select * from tbl_employee where id = #{id}</select>
-    <select id="getEmployeeById" resultType="employee" databaseId="sql_server">select * from tbl_ss_employee where id = #{id}</select>
+    <select id="getEmployeeById" resultType="employee" databaseId="mysql">
+        select *
+        from tbl_employee
+        where id = #{id}
+    </select>
+    <select id="getEmployeeById" resultType="employee" databaseId="sql_server">
+        select *
+        from tbl_ss_employee
+        where id = #{id}
+    </select>
+    <update id="updateEmployee" parameterType="cnjxufe.bean.Employee" databaseId="sql_server">
+        update tbl_ss_employee
+        set last_name = #{lastName},
+            gender    = #{gender},
+            email     = #{email}
+        where id = #{id};
+    </update>
+    <insert id="insertEmployee" parameterType="cnjxufe.bean.Employee" databaseId="sql_server">
+        insert into tbl_ss_employee
+        values (#{id}, #{lastName}, #{gender}, #{email});
+    </insert>
+    <delete id="deleteEmployeeById" databaseId="sql_server" parameterType="String">
+        delete from tbl_ss_employee
+        where id = #{id};
+    </delete>
 </mapper>

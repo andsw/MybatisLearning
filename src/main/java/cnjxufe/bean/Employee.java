@@ -5,7 +5,7 @@ package cnjxufe.bean;
  * @create 2018-10-20  22:25
  */
 public class Employee {
-    private Integer id;
+    private String id;
     private String lastName;
     private char gender;
     private String email;
@@ -13,18 +13,18 @@ public class Employee {
     public Employee() {
     }
 
-    public Employee(Integer id, String lastName, char gender, String email) {
+    public Employee(String id, String lastName, char gender, String email) {
         this.id = id;
         this.lastName = lastName;
         this.gender = gender;
         this.email = email;
     }
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
