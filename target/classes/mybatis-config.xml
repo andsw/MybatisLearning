@@ -75,10 +75,22 @@
         <!--为不同数据库产生别名！-->
         <property name="MySQL" value="mysql"/>
         <property name="SQL Server" value="sql_server"/>
+        <!--<property name="DB2" value="db2"/>
+        <property name="Oracle" value="oracle" />-->
     </databaseIdProvider>
 
     <!--将我们写好的sql映射文件注册在全局配置文件中！-->
     <mappers>
+        <!--
+            mapper的相关属性：
+                resource：类路径下的配置文件。
+                url：网络或磁盘路径下的配置文件。
+                class：直接放接口的全路径，
+                    但接口必须和配置文件放在同一路径下，并且和接口同名！（有配置文件的）
+                    没有配置文件的，所有sql写在注解中！（不推荐）
+            或者可以使用package：
+                写入包名，批量注解接口！
+        -->
         <mapper resource="employee_statement.xml"/>
         <mapper resource="getEmployeeById_statement.xml"/>
     </mappers>

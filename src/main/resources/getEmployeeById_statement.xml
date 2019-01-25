@@ -22,6 +22,14 @@
             email     = #{email}
         where id = #{id};
     </update>
+
+    <!--parameterType可以省略-->
+    <!--insert还有一个属性值得注意，就是useGenerateKeys="true"
+        mysql和SQL Server数据库都支持自增主键，自增主键的获取，mybatis也是和jdbc一样
+        通过statement.getGenerateKeys()获取
+        配合keyProperty指定对应的主键属性名，将生成的主键值自动插入到传入的对象的对应属性处。
+        由于这里没有使用自增属性，也就不示例了！
+    -->
     <insert id="insertEmployee" parameterType="cnjxufe.bean.Employee" databaseId="sql_server">
         insert into tbl_ss_employee
         values (#{id}, #{lastName}, #{gender}, #{email});

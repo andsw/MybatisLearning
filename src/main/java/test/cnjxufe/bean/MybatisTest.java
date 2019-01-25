@@ -60,6 +60,7 @@ public class MybatisTest {
      * 测试其他sql操作（增删改）
      * 这里的增删改操纵需要手动commit。
      *（比如删除的地方出现错误，没有commit，那么insert也就不会生效！）
+     * 但factory.openSession(true);可以自动提交！
      */
     @Test
     public void test0() {
