@@ -1,5 +1,7 @@
 package cnjxufe.bean;
 
+import org.apache.ibatis.annotations.Param;
+
 /**
  * @author hsw
  * @create 2018-11-10  20:26
@@ -35,5 +37,14 @@ public interface EmployeeMapper {
      * @return
      */
     boolean deleteEmployeeById(String id);
+
+    /**
+     * 根据姓和性别查找员工
+     * @param lastName
+     * @param gender
+     * @return
+     */
+    Employee getEmployeeByLastNameAndGender(@Param("lastName") String lastName,
+                                            @Param("gender") String gender);
 
 }

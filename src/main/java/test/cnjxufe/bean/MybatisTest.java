@@ -2,6 +2,7 @@ package test.cnjxufe.bean;
 
 import cnjxufe.bean.Employee;
 import cnjxufe.bean.EmployeeMapper;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -80,6 +81,19 @@ public class MybatisTest {
         long updateNum = mapper.updateEmployee(employee);
         System.out.println("修改记录成功条数：" + updateNum);
         sqlSession.commit();
+        sqlSession.close();
+    }
+
+    /**
+     * 测试传递多参数到映射文件的情况
+     */
+    @Test
+    public void test1() {
+        SqlSessionFactory factory = getSqlSessionFactory();
+        SqlSession sqlSession = factory.openSession();
+        EmployeeMapper mapper = sqlSession.getMapper(EmployeeMapper.class);
+        Employee employee = mapper.getEmployeeByLastNameAndGender("bat", "M");
+        System.out.println(employee);
         sqlSession.close();
     }
 
