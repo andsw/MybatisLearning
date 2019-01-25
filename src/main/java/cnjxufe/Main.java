@@ -53,7 +53,7 @@ public class Main {
         //2. 从SqlSessionFactory中获取SqlSession实例，能直接执行已经映射的sql语句！
         //这里使用这个select方法有两个参数，第一个是sql的唯一标识！第二个是执行sql所需要的参数！
         try (SqlSession openSqlSession = sqlSessionFactory.openSession()) {
-            Employee employee = openSqlSession.selectOne("cnjxufe.bean.EmployeeMapper.selectEmp", "0164559");
+            Employee employee = openSqlSession.selectOne("cnjxufe.bean.Employee.selectEmp", "0164559");
             System.out.println(employee);
         }
 

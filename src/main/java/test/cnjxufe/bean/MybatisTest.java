@@ -13,6 +13,9 @@ import org.junit.After;
 import java.io.IOException;
 import java.io.InputStream;
 
+/**
+ * @author PC
+ */
 public class MybatisTest {
 
     @Before
@@ -40,17 +43,17 @@ public class MybatisTest {
     }
 
     /**
-    *
     * Method: getId()
     * 接口式编程时比较受欢迎的
     */
     @Test
-    public void mybatis() throws Exception {
+    public void mybatis() {
         SqlSessionFactory factory = getSqlSessionFactory();
-        SqlSession sqlSession = factory.openSession();
-        EmployeeMapper mapper = sqlSession.getMapper(cnjxufe.bean.EmployeeMapper.class);
-        Employee employee = mapper.getEmployeeById("0164559");
-        System.out.println(employee);
+        try (SqlSession sqlSession = factory.openSession()) {
+            EmployeeMapper mapper = sqlSession.getMapper(EmployeeMapper.class);
+            Employee employee = mapper.getEmployeeById("0164559");
+            System.out.println(employee);
+        }
     }
 
 }

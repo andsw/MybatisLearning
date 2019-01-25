@@ -6,6 +6,11 @@ package cnjxufe.bean;
  */
 public interface EmployeeMapper {
 
+    /**
+     * 通过号码查找员工
+     * @param id
+     * @return
+     */
     Employee getEmployeeById(String id);
 
 }

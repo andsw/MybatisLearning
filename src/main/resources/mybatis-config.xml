@@ -12,7 +12,14 @@
 ,plugins?,environments?,databaseIdProvider?,mappers?)-->
 <configuration>
 
-    <properties resource="database_config.properties"/>
+    <properties resource="database_config.properties">
+        <!-- 允许下方username使用默认值设定！ -->
+        <property name="org.apache.ibatis.parsing.PropertyParser.enable-default-value" value="true"/>
+        <!-- Change default value of separator -->
+        <property name="org.apache.ibatis.parsing.PropertyParser.default-value-separator" value="?:"/>
+        <!--可以在文件中配置，也能在外部配置，外部配置的不可以覆盖文件内容！-->
+        <property name="password" value="123"/>
+    </properties>
 
     <settings>
         <!--将数据库中下划线分隔单词的命名格式转换成java中的驼峰命名格式，亲试有效！-->
@@ -34,17 +41,42 @@
 
     </typeAliases>
 
-    <environments default="development">
-        <environment id="development">
+    <typeHandlers>
+        <!--这个是配置自定义的typeHandler地方！（具体查看官方文档！）-->
+        <!--<typeHandler handler="org.mybatis.example.ExampleTypeHandler"/>-->
+    </typeHandlers>
+
+    <environments default="dev_sql_server">
+        <environment id="dev_mysql">
             <transactionManager type="JDBC"/>
             <dataSource type="POOLED">
-                <property name="driver" value="${driver}"/>
-                <property name="url" value="${url}"/>
-                <property name="username" value="${username}"/>
-                <property name="password" value="${password}"/>
+                <property name="driver" value="${mysql.driver}"/>
+                <property name="url" value="${mysql.url}"/>
+                <!-- If 'username' property not present, username become 'root' -->
+                <property name="username" value="${mysql.username?:root}"/>
+                <property name="password" value="${mysql.password}"/>
+            </dataSource>
+        </environment>
+        <environment id="dev_sql_server">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${sql_server.driver}"/>
+                <property name="url" value="${sql_server.url}"/>
+                <property name="username" value="${sql_server.username}"/>
+                <property name="password" value="${sql_server.password}"/>
             </dataSource>
         </environment>
     </environments>
+
+    <!--databaseIdProvider ：支持多种数据库厂商的，
+    type="DB_VENDOR"作用是得到数据库厂商的标识（MYSQL，SQL Server，Oracle，xxx）标识是在
+    每个数据库驱动中包含的，能通过java获取数据库元数据获取（DatabaseMetaData#getDatabaseProductName()）-->
+    <databaseIdProvider type="DB_VENDOR">
+        <!--为不同数据库产生别名！-->
+        <property name="MySQL" value="mysql"/>
+        <property name="SQL Server" value="sql_server"/>
+    </databaseIdProvider>
+
     <!--将我们写好的sql映射文件注册在全局配置文件中！-->
     <mappers>
         <mapper resource="employee_statement.xml"/>
