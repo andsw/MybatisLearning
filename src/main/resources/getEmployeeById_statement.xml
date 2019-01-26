@@ -15,6 +15,21 @@
         from tbl_ss_employee
         where id = #{id}
     </select>
+    <!-- 还有#{}和${}的区别：
+    前者是以预编译的形式将参数设置到sql语句中的，即是用preparedStatement，可防止sql注入。
+    后者将取出的参数值直接拼装到sql中，会有安全问题！
+    大部分情况下使用#{}
+
+    原生jdbc不支持占位符的地方可以使用${}
+    少数情况比如：分表
+                    比如按照年份表拆分：
+                    select * from ${year}_salary;
+                排序
+                    select * from tbl_employee order by ${param} by ${order}
+
+    再讲些#{}更丰富的用法：
+        一般存储过程用的比较多，用到再了解！
+    -->
     <update id="updateEmployee" parameterType="cnjxufe.bean.Employee" databaseId="sql_server">
         update tbl_ss_employee
         set last_name = #{lastName},
@@ -52,10 +67,40 @@
     -->
     <!--Employee getEmployeeByLastNameAndGender(@Param("lastName") String lastName,
      @Param("gender") String gender);-->
+
+    <!--也可以直接将多个参数封装成一个map，可以直接用#{}取值!-->
+    <!--========================================================================-->
+    <!--Employee getEmployeeByLastNameAndGender(String lastName,
+     @Param("employee") Employee employee);  ===>  #{param1}  #{employee.id}-->
+    <!--如果是collection对象或数组
+    Employee getEmployeeByIds(List<String> ids); ===> #{ids[0]}-->
     <select id="getEmployeeByLastNameAndGender" resultType="cnjxufe.bean.Employee" databaseId="sql_server">
         select *
         from tbl_ss_employee
         where last_name = #{lastName}
           and gender = #{gender};
+    </select>
+
+    <!--List<Employee> getEmployeeByGender(String gender);-->
+    <!--返回的是集合元素，但result仍然写元素类型！-->
+    <select id="getEmployeeByGender" databaseId="sql_server" resultType="cnjxufe.bean.Employee">
+        select *
+        from tbl_ss_employee
+        where gender = #{gender};
+    </select>
+
+    <!--Map<String, Object> getEmployeeReturnMap(String id);-->
+    <!--resultType="map"直接用map表示Map是因为mybatis帮我们将常用的类取了别名！-->
+    <select id="getEmployeeReturnMap" resultType="map" databaseId="sql_server">
+        select *
+        from tbl_ss_employee
+        where id = #{hierarchyid};
+    </select>
+
+    <!--@MapKey("id") Map<String, Employee> getEmployeesReturnMap(String gender);-->
+    <select id="getEmployeesReturnMap" resultType="map" databaseId="sql_server">
+        select *
+        from tbl_ss_employee
+        where gender = #{gender};
     </select>
 </mapper>

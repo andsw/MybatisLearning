@@ -1,6 +1,10 @@
 package cnjxufe.bean;
 
+import org.apache.ibatis.annotations.MapKey;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author hsw
@@ -47,4 +51,26 @@ public interface EmployeeMapper {
     Employee getEmployeeByLastNameAndGender(@Param("lastName") String lastName,
                                             @Param("gender") String gender);
 
+    /**
+     * 根据性别返回员工集合！
+     * @param gender
+     * @return
+     */
+    List<Employee> getEmployeeByGender(String gender);
+
+    /**
+     * 返回map的形式表示一个员工，map的键就是列名
+     * @param id
+     * @return
+     */
+    Map<String, Object> getEmployeeReturnMap(String id);
+
+    /**
+     * 以map的形式返回所有员工信息
+     * 用@MapKey 设置map的主键为员工类的哪个属性！
+     * @param gender
+     * @return
+     */
+    @MapKey("id")
+    Map<String, Employee> getEmployeesReturnMap(String gender);
 }

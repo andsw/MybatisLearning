@@ -2,7 +2,6 @@ package test.cnjxufe.bean;
 
 import cnjxufe.bean.Employee;
 import cnjxufe.bean.EmployeeMapper;
-import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -13,6 +12,8 @@ import org.junit.After;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author PC
@@ -94,6 +95,33 @@ public class MybatisTest {
         EmployeeMapper mapper = sqlSession.getMapper(EmployeeMapper.class);
         Employee employee = mapper.getEmployeeByLastNameAndGender("bat", "M");
         System.out.println(employee);
+        sqlSession.close();
+    }
+
+    /**
+     * 测试返回的是集合对象的查询
+     */
+    @Test
+    public void test2() {
+        SqlSessionFactory factory = getSqlSessionFactory();
+        SqlSession sqlSession = factory.openSession();
+        EmployeeMapper mapper = sqlSession.getMapper(EmployeeMapper.class);
+        List<Employee> employees = mapper.getEmployeeByGender("M");
+        employees.forEach(System.out::println);
+
+        //返回一个员工的map
+        System.out.println("\ngetEmployeeReturnMap:   ");
+        Map<String, Object> singleEmployeeMap = mapper.getEmployeeReturnMap("0164551");
+        for (Map.Entry<String, Object> entry : singleEmployeeMap.entrySet()) {
+            System.out.println(entry.getKey() + " " + entry.getValue());
+        }
+
+        System.out.println("\ngetEmployeesReturnMap:  ");
+        Map<String, Employee> employeesMap = mapper.getEmployeesReturnMap("M");
+        for (Map.Entry<String, Employee> entry : employeesMap.entrySet()) {
+            System.out.println(entry.getKey() + " " + entry.getValue());
+        }
+
         sqlSession.close();
     }
 
