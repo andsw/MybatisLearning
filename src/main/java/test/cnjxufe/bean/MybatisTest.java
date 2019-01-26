@@ -2,6 +2,7 @@ package test.cnjxufe.bean;
 
 import cnjxufe.bean.Employee;
 import cnjxufe.bean.EmployeeMapper;
+import cnjxufe.bean.EmployeeMapperPlus;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -116,6 +117,7 @@ public class MybatisTest {
             System.out.println(entry.getKey() + " " + entry.getValue());
         }
 
+        //返回多个员工的信息
         System.out.println("\ngetEmployeesReturnMap:  ");
         Map<String, Employee> employeesMap = mapper.getEmployeesReturnMap("M");
         for (Map.Entry<String, Employee> entry : employeesMap.entrySet()) {
@@ -125,4 +127,15 @@ public class MybatisTest {
         sqlSession.close();
     }
 
+    /**
+     * 即使去掉驼峰命名设置也能成功!
+     */
+    @Test
+    public void test3() {
+        SqlSessionFactory factory = getSqlSessionFactory();
+        SqlSession sqlSession = factory.openSession();
+        EmployeeMapperPlus mapper = sqlSession.getMapper(EmployeeMapperPlus.class);
+        Employee employee = mapper.getEmployeeById("0164559");
+        System.out.println(employee);
+    }
 }

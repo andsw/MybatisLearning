@@ -92,6 +92,7 @@
                 写入包名，批量注解接口！
         -->
         <mapper resource="employee_statement.xml"/>
-        <mapper resource="getEmployeeById_statement.xml"/>
+        <mapper resource="EmployeeMapper.xml"/>
+        <mapper resource="EmployeeMapperPlus.xml"/>
     </mappers>
 </configuration>

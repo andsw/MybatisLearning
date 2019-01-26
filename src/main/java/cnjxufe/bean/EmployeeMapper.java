@@ -67,10 +67,10 @@ public interface EmployeeMapper {
 
     /**
      * 以map的形式返回所有员工信息
-     * 用@MapKey 设置map的主键为员工类的哪个属性！
+     * 用@MapKey 设置map的键为员工类的哪个属性！
      * @param gender
      * @return
      */
-    @MapKey("id")
+    @MapKey("lastName")
     Map<String, Employee> getEmployeesReturnMap(String gender);
 }

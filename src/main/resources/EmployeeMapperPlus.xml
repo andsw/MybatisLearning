@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cnjxufe.bean.EmployeeMapperPlus">
+    <!--数据库中的属性和javaBean中的属性对应有三种对应方式：
+        1. java bean中的属性名与数据库中的列名一致！
+        2. 需要使用驼峰命名法将数据库中的下划线格式修改为对应的java bean属性！
+        3. 如果上面两种都无法对应，就要使用下面这种自定义结果集对应方式了！
+    -->
+    <!--
+    相关属性：
+            type：自定义规则的java类型
+            id：resultMap的ID，方便引用！
+    -->
+    <resultMap id="myEmployee" type="cnjxufe.bean.Employee">
+        <!--指定主键列的封装规则
+            id定义主键会有底层优化，
+            column指定那一列，property指定对应java bean的那个属性！
+        -->
+        <id column="id" property="id"/>
+        <!--
+            指定普通列的封装规则，在此实例中，指定了这个差不多将驼峰
+            命名法转换开关给关闭都可以成功装换了！
+        -->
+        <result column="last_name" property="lastName"/>
+        <!--其他相互对应的列名和属性都一一相同，所以可以省略！
+            但最好全部写出来！-->
+        <result column="gender" property="gender"/>
+        <result column="email" property="email"/>
+    </resultMap>
+
+    <!--public Employee getEmployeeById(String id);-->
+    <select id="getEmployeeById" resultMap="myEmployee" databaseId="sql_server">
+        select *
+        from tbl_ss_employee
+        where id = #{id};
+    </select>
+</mapper>
