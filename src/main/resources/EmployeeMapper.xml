@@ -103,4 +103,13 @@
         from tbl_ss_employee
         where gender = #{gender};
     </select>
+
+    <!--用作集合结果集的分步查询！-->
+    <!--List<Employee> getEmployeesByDepartmentId(Integer departmentId);-->
+    <!--注意一个问题：resultType是里面元素类型和list都可以吗？-->
+    <select id="getEmployeesByDepartmentId" resultType="cnjxufe.bean.Employee" databaseId="sql_server">
+        SELECT *
+        FROM tbl_ss_employee
+        where department_id = #{departmentId};
+    </select>
 </mapper>

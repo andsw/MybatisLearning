@@ -1,8 +1,6 @@
 package test.cnjxufe.bean;
 
-import cnjxufe.bean.Employee;
-import cnjxufe.bean.EmployeeMapper;
-import cnjxufe.bean.EmployeeMapperPlus;
+import cnjxufe.bean.*;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -139,18 +137,43 @@ public class MybatisTest {
         System.out.println(employee);
     }
 
+    /**
+     * 级联查询
+     */
     @Test
     public void test4() {
         SqlSessionFactory factory = getSqlSessionFactory();
         SqlSession sqlSession = factory.openSession();
         EmployeeMapperPlus mapper = sqlSession.getMapper(EmployeeMapperPlus.class);
         Employee employee = mapper.getEmployeeByIdWithDepartment("000000");
-        System.out.println(employee.getEmail());
+        System.out.println(employee);
 
-        //分布查询
+        //分步查询
         Employee employee1 = mapper.getEmployeeByStepAndId("000000");
+        System.out.println(employee1.getEmail());
         System.out.println(employee1.getDepartment());
         sqlSession.close();
     }
 
+    /**
+     * 自定义collection结果集自定义关联集合封装规则！
+     *
+     * 根据id获取部门的同时也获取所有在此部门的员工
+     */
+    @Test
+    public void test5() {
+        SqlSessionFactory factory = getSqlSessionFactory();
+        SqlSession sqlSession = factory.openSession();
+        DepartmentMapper mapper = sqlSession.getMapper(DepartmentMapper.class);
+        Department department = mapper.getDepartmentByIdWithAllEmployees(1);
+        System.out.println(department);
+
+        /* 自定义关联集合结果集加上分步查询即只需要部门信息，不包含所有的员工信息即只查询部门表！
+
+        */
+        Department department1 = mapper.getDepartmentByIdAndStep(4);
+        System.out.println(department1.getDepartmentName());
+        System.out.println(department1.getEmployees());
+        sqlSession.close();
+    }
 }

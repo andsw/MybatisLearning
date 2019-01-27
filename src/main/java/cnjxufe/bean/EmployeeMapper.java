@@ -73,4 +73,11 @@ public interface EmployeeMapper {
      */
     @MapKey("lastName")
     Map<String, Employee> getEmployeesReturnMap(String gender);
+
+    /**
+     * 获取在此号码部门里的所有员工信息的链表！
+     * @param departmentId
+     * @return
+     */
+    List<Employee> getEmployeesByDepartmentId(Integer departmentId);
 }

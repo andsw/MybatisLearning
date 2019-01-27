@@ -9,4 +9,42 @@
         from tbl_ss_department
         where department_id = #{department_id};
     </select>
+
+    <resultMap id="getDepartmentWithLAllEmployee" type="cnjxufe.bean.Department">
+        <id column="department_id" property="departmentId"/>
+        <result column="department_name" property="departmentName"/>
+        <collection property="employees" ofType="cnjxufe.bean.Employee">
+            <id column="id" property="id"/>
+            <result column="last_name" property="lastName"/>
+            <result column="email" property="email"/>
+            <result column="gender" property="gender"/>
+        </collection>
+    </resultMap>
+
+    <select id="getDepartmentByIdWithAllEmployees" databaseId="sql_server"
+            resultMap="getDepartmentWithLAllEmployee">
+        select d.*, e.id id, e.last_name last_name, e.gender gender, e.email email
+        from tbl_ss_department d,
+             tbl_ss_employee e
+        where d.department_id = #{department_id}
+          and e.department_id = d.department_id;
+    </select>
+
+    <!--分步查询结果集-->
+    <resultMap id="collectionByStepMap" type="cnjxufe.bean.Department">
+        <id column="department_id" property="departmentId"/>
+        <result column="department_name" property="departmentName"/>
+        <!--collection中column写的是部门的id，相当于是传值给第二步操作。-->
+        <collection property="employees" ofType="cnjxufe.bean.Employee"
+                    select="cnjxufe.bean.EmployeeMapper.getEmployeesByDepartmentId"
+                    column="department_id"/>
+    </resultMap>
+
+    <!--Department getDepartmentByIdAndStep(Integer departmentId);-->
+    <select id="getDepartmentByIdAndStep" databaseId="sql_server"
+            resultMap="collectionByStepMap">
+        select *
+        from tbl_ss_department
+        where department_id = #{departmentId};
+    </select>
 </mapper>
