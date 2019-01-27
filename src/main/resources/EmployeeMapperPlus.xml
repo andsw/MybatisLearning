@@ -68,4 +68,22 @@
         from tbl_ss_employee e, tbl_ss_department d
         where e.department_id = d.department_id and e.id = #{id};
     </select>
+
+    <resultMap id="myEmployeeByStep" type="cnjxufe.bean.Employee">
+        <id column="id" property="id"/>
+        <result column="last_name" property="lastName"/>
+        <result column="gender" property="gender"/>
+        <result column="email" property="email"/>
+        <association property="department"
+                     select="cnjxufe.bean.DepartmentMapper.getDepartmentById"
+                     column="department_id">
+        </association>
+    </resultMap>
+
+    <!--Employee getEmployeeByStepAndId(String id);-->
+    <select id="getEmployeeByStepAndId" resultMap="myEmployeeByStep" databaseId="sql_server">
+        select *
+        from tbl_ss_employee
+        where id = #{id};
+    </select>
 </mapper>

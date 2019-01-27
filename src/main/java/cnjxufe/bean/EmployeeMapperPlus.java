@@ -22,4 +22,11 @@ public interface EmployeeMapperPlus {
      */
     Employee getEmployeeByIdWithDepartment(String id);
 
+    /**
+     * 通过id分步查询员工信息！
+     * @param id
+     * @return
+     */
+    Employee getEmployeeByStepAndId(String id);
+
 }

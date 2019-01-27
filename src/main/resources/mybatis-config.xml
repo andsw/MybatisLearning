@@ -96,5 +96,6 @@
         <mapper resource="employee_statement.xml"/>
         <mapper resource="EmployeeMapper.xml"/>
         <mapper resource="EmployeeMapperPlus.xml"/>
+        <mapper resource="DepartmentMapper.xml"/>
     </mappers>
 </configuration>
