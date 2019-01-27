@@ -145,11 +145,11 @@ public class MybatisTest {
         SqlSession sqlSession = factory.openSession();
         EmployeeMapperPlus mapper = sqlSession.getMapper(EmployeeMapperPlus.class);
         Employee employee = mapper.getEmployeeByIdWithDepartment("000000");
-        System.out.println(employee);
+        System.out.println(employee.getEmail());
 
         //分布查询
         Employee employee1 = mapper.getEmployeeByStepAndId("000000");
-        System.out.println(employee1);
+        System.out.println(employee1.getDepartment());
         sqlSession.close();
     }
 

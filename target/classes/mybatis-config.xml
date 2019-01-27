@@ -21,9 +21,42 @@
         <property name="password" value="123"/>
     </properties>
 
+    <!--即使有些setting的值默认的也满足条件，也应该显式表现出来，以防版本更新导致出现错误！
+    比如 aggressiveLazyLoading属性， 在版本3.4.1之前默认是true，之后的版本都默认是false！-->
     <settings>
-        <!--将数据库中下划线分隔单词的命名格式转换成java中的驼峰命名格式，亲试有效！-->
+        <!--将数据库中下划线分隔单词的命名格式转换成java中的驼峰命名格式！-->
         <setting name="mapUnderscoreToCamelCase" value="true"/>
+        <!--
+        延迟加载的全局开关。当开启时，所有关联对象都会延迟加载。
+        特定关联关系中可通过设置fetchType属性来覆盖该项的开关状态。
+        默认值是false。
+        设置为true即打开延迟加载开关！
+        -->
+        <!--何为延迟加载？
+            比如，当我们获取一张订单的信息时，没有延迟加载就会一次性地把所有的信息包括相关联的买家信息
+            而有延迟加载可以在使用订单信息时只加载订单信息，用到与之相关联的买家信息时就会拿着买家id再
+            去查询买家信息！
+        -->
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <!--
+        当开启时，任何方法的调用都会加载该对象的所有属性。
+        否则，每个属性会按需加载（参考lazyLoadTriggerMethods).
+        默认值是true。
+        当设置为false时，积极加载变成消极加载，即被关联对象的属性只有在需要时才会被加载，否则一次性全部加载！
+        -->
+        <setting name="aggressiveLazyLoading" value="false"/>
+
+        <!--
+        不少应用服务器（如 Tomcat 和 WebShpere）的类路径中已经包含 Commons Logging，所以在这种配置环境
+        下的 MyBatis 会把它作为日志工具，记住这点非常重要。这将意味着，在诸如 WebSphere 的环境中，它提供
+        了 Commons Logging 的私有实现，你的 Log4J 配置将被忽略。MyBatis 将你的 Log4J 配置忽略掉是相当令
+        人郁闷的（事实上，正是因为在这种配置环境下，MyBatis 才会选择使用 Commons Logging 而不是 Log4J）。
+        如果你的应用部署在一个类路径已经包含 Commons Logging 的环境中，而你又想使用其它日志工具，你可以通
+        过在 MyBatis 配置文件 mybatis-config.xml 里面添加一项 setting 来选择别的日志工具。
+                                                                           \-\-\-\-\-来自官方文档
+                                                         (http://www.mybatis.org/mybatis-3/zh/logging.html)
+        -->
+        <setting name="logImpl" value="LOG4J"/>
     </settings>
 
     <typeAliases>
@@ -96,5 +129,6 @@
         <mapper resource="employee_statement.xml"/>
         <mapper resource="EmployeeMapper.xml"/>
         <mapper resource="EmployeeMapperPlus.xml"/>
+        <mapper resource="DepartmentMapper.xml"/>
     </mappers>
 </configuration>
