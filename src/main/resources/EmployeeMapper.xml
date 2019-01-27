@@ -47,7 +47,7 @@
     -->
     <insert id="insertEmployee" parameterType="cnjxufe.bean.Employee" databaseId="sql_server">
         insert into tbl_ss_employee
-        values (#{id}, #{lastName}, #{gender}, #{email});
+        values (#{id}, #{lastName}, #{gender}, #{email}, 1);
     </insert>
 
     <delete id="deleteEmployeeById" databaseId="sql_server" parameterType="String">

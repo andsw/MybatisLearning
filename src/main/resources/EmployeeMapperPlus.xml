@@ -37,4 +37,35 @@
         from tbl_ss_employee
         where id = #{id};
     </select>
+
+    <!--实现级联，但不用外键，看到好多人说用外键太约束-->
+    <!--这是第一种方法-->
+    <!--<resultMap id="myEmployeeWithDepartment" type="cnjxufe.bean.Employee">
+        <id column="id" property="id"/>
+        <result column="last_name" property="lastName"/>
+        <result column="gender" property="gender"/>
+        <result column="email" property="email"/>
+        <result column="department_id" property="department.departmentId"/>
+        <result column="department_name" property="department.departmentName"/>
+    </resultMap>-->
+
+    <!--第二种-->
+    <resultMap id="myEmployeeWithDepartment" type="cnjxufe.bean.Employee">
+        <id column="id" property="id"/>
+        <result column="last_name" property="lastName"/>
+        <result column="gender" property="gender"/>
+        <result column="email" property="email"/>
+        <association property="department" javaType="cnjxufe.bean.Department">
+            <id column="department_id" property="departmentId"/>
+            <result column="department_name" property="departmentName"/>
+        </association>
+    </resultMap>
+
+    <select id="getEmployeeByIdWithDepartment" resultMap="myEmployeeWithDepartment"
+            databaseId="sql_server">
+        select e.id id, e.last_name last_name, e.gender gender, e.email email,
+               e.department_id department_id, d.department_name department_name
+        from tbl_ss_employee e, tbl_ss_department d
+        where e.department_id = d.department_id and e.id = #{id};
+    </select>
 </mapper>

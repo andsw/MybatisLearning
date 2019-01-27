@@ -15,4 +15,11 @@ public interface EmployeeMapperPlus {
      */
     Employee getEmployeeById(String id);
 
+    /**
+     * 带有级联搜索的示例方法
+     * @param id
+     * @return
+     */
+    Employee getEmployeeByIdWithDepartment(String id);
+
 }

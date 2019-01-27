@@ -71,7 +71,7 @@ public class MybatisTest {
         SqlSession sqlSession = factory.openSession();
         EmployeeMapper mapper = sqlSession.getMapper(EmployeeMapper.class);
         //增加员工
-        Employee employee = new Employee("000000",
+        Employee employee = new Employee("000001",
                 "heshao", 'M', "985934131@qq.com");
         int insertNum = mapper.insertEmployee(employee);
         System.out.println("插入记录成功条数 = "  + insertNum);
@@ -138,4 +138,14 @@ public class MybatisTest {
         Employee employee = mapper.getEmployeeById("0164559");
         System.out.println(employee);
     }
+
+    @Test
+    public void test4() {
+        SqlSessionFactory factory = getSqlSessionFactory();
+        SqlSession sqlSession = factory.openSession();
+        EmployeeMapperPlus mapper = sqlSession.getMapper(EmployeeMapperPlus.class);
+        Employee employee = mapper.getEmployeeByIdWithDepartment("000000");
+        System.out.println(employee);
+    }
+
 }

@@ -9,6 +9,7 @@ public class Employee {
     private String lastName;
     private char gender;
     private String email;
+    private Department department;
 
     public Employee() {
     }
@@ -28,11 +29,11 @@ public class Employee {
         this.id = id;
     }
 
-    public String getlastName() {
+    public String getLastName() {
         return lastName;
     }
 
-    public void setlastName(String lastName) {
+    public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
@@ -52,13 +53,22 @@ public class Employee {
         this.email = email;
     }
 
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+
     @Override
     public String toString() {
         return "Employee{" +
-                "id=" + id +
+                "id='" + id + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", gender=" + gender +
                 ", email='" + email + '\'' +
+                ", department=" + department +
                 '}';
     }
 }

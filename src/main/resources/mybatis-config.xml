@@ -46,9 +46,11 @@
         <!--<typeHandler handler="org.mybatis.example.ExampleTypeHandler"/>-->
     </typeHandlers>
 
+    <!--数据库环境可以写多个，在default中写要使用的那个-->
     <environments default="dev_sql_server">
         <environment id="dev_mysql">
             <transactionManager type="JDBC"/>
+            <!--type有三个值：POOLED UNPOOLED JNDI -->
             <dataSource type="POOLED">
                 <property name="driver" value="${mysql.driver}"/>
                 <property name="url" value="${mysql.url}"/>
