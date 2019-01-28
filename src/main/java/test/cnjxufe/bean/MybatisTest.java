@@ -176,4 +176,20 @@ public class MybatisTest {
         System.out.println(department1.getEmployees());
         sqlSession.close();
     }
+
+    /**
+     * 测试discriminator
+     * 规则：
+     *     如果查出是女生，则把部门信息查询出来，否则不查询。
+     *     如果为男生，则将last_name的值赋给email。
+     */
+    @Test
+    public void test6() {
+        SqlSessionFactory factory = getSqlSessionFactory();
+        SqlSession sqlSession = factory.openSession();
+        EmployeeMapperPlus mapperPlus = sqlSession.getMapper(EmployeeMapperPlus.class);
+        List<Employee> employees = mapperPlus.getEmployeesByDepartmentIdWithDiscriminator(4);
+        System.out.println(employees);
+        sqlSession.close();
+    }
 }

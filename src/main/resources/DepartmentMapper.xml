@@ -34,11 +34,23 @@
     <resultMap id="collectionByStepMap" type="cnjxufe.bean.Department">
         <id column="department_id" property="departmentId"/>
         <result column="department_name" property="departmentName"/>
-        <!--collection中column写的是部门的id，相当于是传值给第二步操作。-->
+        <!--collection中column写的是部门的id，即是传参数值给第二步操作。-->
+        <!--注释掉写discrimination-->
         <collection property="employees" ofType="cnjxufe.bean.Employee"
                     select="cnjxufe.bean.EmployeeMapper.getEmployeesByDepartmentId"
-                    column="department_id"/>
+                    column="department_id" fetchType="lazy">
+        </collection>
     </resultMap>
+
+    <!--扩展：
+            上述column也能传递多个参数值
+            即将参数值封装成map形式：
+            {parameter1=value1， key2=value2}
+
+        还有：
+        fetchType属性：取值 eager|lazy（默认lazy）
+        lazy就是延迟加载，eager就是取消延迟加载，即获取department信息的同时加载员工信息！
+    -->
 
     <!--Department getDepartmentByIdAndStep(Integer departmentId);-->
     <select id="getDepartmentByIdAndStep" databaseId="sql_server"
